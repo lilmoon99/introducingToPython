@@ -10,9 +10,9 @@
 # print(False or True)
 # print(False or False)
 from random import *
-x = choice([True,False])
-y = choice([True,False])
-z = choice([True,False])
+# x = choice([True,False])
+# y = choice([True,False])
+# z = choice([True,False])
 
 def predicate_generator(predicate_count):
     predicates = []
@@ -23,11 +23,16 @@ def predicate_generator(predicate_count):
 
 
 def de_morgan(predicates):
-    return not(predicates[0] or predicates[1] or predicates[2]) == (not(predicates[0]) and not(predicates[1]) and not(predicates[2]))
+    left_side = predicates[0]
+    right_side = not predicates[0]
+    for i in range(1,len(predicates)):
+        left_side = left_side or predicates[i]
+        right_side = right_side and not predicates[i]
+    return not left_side == right_side       
         
-        
-count_predicate = 3
+
 j = 0
 while(j < 100):
+    count_predicate = randint(3,15)
     print(de_morgan(predicate_generator(count_predicate)))
     j += 1
