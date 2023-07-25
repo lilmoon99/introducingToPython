@@ -41,10 +41,15 @@ def Check(n: int) -> bool:
         n = n // 10
     return is_good
 
-def competite(number: int) -> str:
+def competite(number: int) -> list:
+    temp =[]
+    temp.append(number)
     while not Check(number):
         number = int(input("Try again!: "))
-    if Check(number):
-        return "You win"
+        temp.append(number)
+        if Check(number):
+            print("You win")
+    return temp
 
-competite(n)
+numbers_list = competite(n)
+print(f"Max of entered numbers is: {max(numbers_list)}")
