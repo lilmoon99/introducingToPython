@@ -9,24 +9,50 @@
 # Ввод:                                       Вывод:
 # пара-ра-рам рам-пам-папам па-ра-па-дам      Парам пам-пам
 
-def rhythm_identifier(string_from_kbd):
-    words = string_from_kbd.split()
-    syllables_list = []
-    for i in words:
-        syllables_list.append(syllable_finder(i))
-    if max(syllables_list) == min(syllables_list):
-        return 'Парам пам-пам'
-    else:
-        return 'Пам парам'
+import sys
+from PyQt5 import QtCore,QtGui,QtWidgets
+from PyQt5.QtGui import QIcon
+from vonni_ui import Ui_MainWindow
+
+class vonni_rhythm(QtWidgets.QMainWindow):
+    def __init__(self):
+        super(vonni_rhythm,self).__init__()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+        self.init_UI()
+    def init_UI(self):
+        self.setWindowTitle("Проверка рифмы от Вонни")
+        self.setWindowIcon(QIcon('vonni.png'))
+        self.ui.text_box.setPlaceholderText("Введите фразу для проверки")
+        self.ui.check_botton.clicked.connect(self.rhythm_identifier)
+        
+    def rhythm_identifier(self):
+        words = self.ui.text_box.toPlainText()
+        words = words.split()
+        syllables_list = []
+        for i in words:
+            syllables_list.append(syllable_finder(i))
+        if max(syllables_list) == min(syllables_list):
+            self.ui.answer.setText(str('Парам пам-пам'))
+        else:
+            self.ui.answer.setText(str('Пам парам'))
     
 def syllable_finder(word):
     vowel_rus = ["а", "е", "ё", "и", "о", "у", "ы", "э", "ю", "я"]
-    # consonant_rus = ['б', 'в', 'г', 'д', 'ж', 'з', 'й', 'к', 'л', 'м', 'н', 'п', 'р', 'с', 'т', 'ф', 'х', 'ц', 'x', 'ш', 'щ', 'ч']
+        # consonant_rus = ['б', 'в', 'г', 'д', 'ж', 'з', 'й', 'к', 'л', 'м', 'н', 'п', 'р', 'с', 'т', 'ф', 'х', 'ц', 'x', 'ш', 'щ', 'ч']
     vowel_count = 0
     for i in range(len(word)):
         if word[i] in vowel_rus:
             vowel_count += 1
     return vowel_count
+    
+app = QtWidgets.QApplication([])
+application = vonni_rhythm()
+application.show()
+
+sys.exit(app.exec())
+
+
 
     
 
