@@ -5,21 +5,23 @@
 # почему не с нуля). Примечание: бинарной операцией называется любая операция, у которой
 # ровно два аргумента, как, например, у операции умножения.
 
-def print_operation_table(operation, num_rows=5, num_columns=5):
+def print_operation_table(operation, num_rows=5, num_columns=8):
     columns_list = [item + 1 for item in range(num_columns)]
     row_list = [item + 1 for item in range(num_rows)]
+    print(columns_list,row_list)
     table = []
     if num_rows >= num_columns:
         for i in range(num_rows):
             row_list = [1*i+1 for item in row_list]
             table.append((list(map(operation,row_list,columns_list))))
     else:
-        for i in range(num_columns):
+        for i in range(num_rows):
             columns_list = [1*i+1 for item in columns_list]
-            table.append((list(map(operation,row_list,columns_list))))
+            table.append((list(map(operation,columns_list,row_list))))
             
     for i in table:
         print(*[f"{x:>5}" for x in i])
+        
 
     # print(list(map(operation(num_rows,num_columns),row_list)))
 

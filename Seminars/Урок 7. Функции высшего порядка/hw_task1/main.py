@@ -11,29 +11,23 @@
 
 def rhythm_identifier(string_from_kbd):
     words = string_from_kbd.split()
-    is_rhythm_there = True
+    syllables_list = []
     for i in words:
-        is_rhythm_there = syllable_finder(i)
-        if is_rhythm_there == False:
-            return 'Пам парам'
-    print(words)
-    return 'Парам пам-пам'
+        syllables_list.append(syllable_finder(i))
+    if max(syllables_list) == min(syllables_list):
+        return 'Парам пам-пам'
+    else:
+        return 'Пам парам'
     
 def syllable_finder(word):
     vowel_rus = ["а", "е", "ё", "и", "о", "у", "ы", "э", "ю", "я"]
     # consonant_rus = ['б', 'в', 'г', 'д', 'ж', 'з', 'й', 'к', 'л', 'м', 'н', 'п', 'р', 'с', 'т', 'ф', 'х', 'ц', 'x', 'ш', 'щ', 'ч']
     vowel_count = 0
-    syl_counter = 1
-    
     for i in range(len(word)):
         if word[i] in vowel_rus:
             vowel_count += 1
-        if word[i] == '-':
-            syl_counter += 1
-    if vowel_count == syl_counter:
-        return True
-    else:
-        return False
+    return vowel_count
+
     
 
 
