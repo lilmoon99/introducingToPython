@@ -28,13 +28,13 @@ def search_by():
 
 def show_data():  # показываем все записи таблицы users
     # commands = {1: 'name', 2: 'surname', 3: 'phone_number'}
-    cur.execute("select * from contact")
+    cur.execute("SELECT * from contact")
     for row in cur.fetchall():
         print(row)
 
 
 def add_into_empty():  # если таблица пустая то добавляется 2 записи
-    cur.execute("select * from contact")
+    cur.execute("SELECT * from contact")
     if not cur.fetchall():
         cur.execute("INSERT INTO contact VALUES ('Айнур','Шамсуллин', 82489124)")
         con.commit()
@@ -56,13 +56,13 @@ def delete_contact():
     commands = {1: 'name', 2: 'surname', 3: 'phone_number'}
     input_command = int(input())
     delete_arg = input(f"Введите {commands.get(input_command)}: ")
-    cur.execute(f"delete from contact where {commands.get(input_command)} = '{delete_arg}'")
+    cur.execute(f"DELETE FROM contact WHERE {commands.get(input_command)} = '{delete_arg}'")
     con.commit()
 
 
 def delete_all():
     print("Привет разработчик!")
-    cur.execute("delete from contact")
+    cur.execute("DELETE FROM contact")
     con.commit()
     print("Все контакты успешно удалены!")
 
